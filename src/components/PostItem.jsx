@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import StyledButton from "./UI/button/StyledButton";
 
 const PostItem  = ({post, index, onDelete}) => {  
+    const navigate = new useNavigate();
     function deleteHandler() {
         onDelete(post);
+    }
+
+    function openPost() {
+        navigate(`/posts/${post.id}`);
     }
     return (
         <div className="post">
@@ -14,6 +21,9 @@ const PostItem  = ({post, index, onDelete}) => {
                 </div>
             </div>
             <div className="post__btns">
+                <StyledButton onClick={openPost}>
+                    Открыть
+                </StyledButton>
                 <StyledButton onClick={deleteHandler}>
                     Удалить
                 </StyledButton>

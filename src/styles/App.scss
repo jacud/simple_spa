@@ -7,6 +7,8 @@
 #root {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .App {
@@ -35,7 +37,16 @@
 
         .post__content__title {
             text-align: left;
-        }
+        }       
+    }
+
+    & .post__btns {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+        align-items: center;
+        gap: 10px;
     }
 
     &-enter {
@@ -74,5 +85,21 @@
     & > *:disabled {
         background-color: orange;
         color: blueviolet;
+    }
+}
+
+.navbar {
+    height: 50px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background: lightgray;
+    margin-bottom: 15px;
+
+    &__links {
+        display: flex;
+        margin-left: auto;
+        gap: 25px;
     }
 }

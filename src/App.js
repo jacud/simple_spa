@@ -1,69 +1,33 @@
 import React, { useEffect, useState } from "react";
-import PostService from "./API/PostService";
-import Pagination from "./components/Pagination";
-import PostFilter from "./components/PostFilter";
-import PostForm from "./components/PostForm";
-import PostList from "./components/PostList";
-import StyledButton from "./components/UI/button/StyledButton";
-import Loader from "./components/UI/loader/Loader";
-import Modal from "./components/UI/modal/Modal";
-import { useFetching } from "./hooks/useFetching";
-import { usePosts } from "./hooks/usePosts"; 
-
 import './styles/App.scss'
-import { getPagesCount } from "./utils/pages";
+import { BrowserRouter } from "react-router-dom";
+import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
+import AppRouter from "./components/AppRouter";
+import { AuthContext } from "./context";
+
 
 export default function App() {
-  const [posts, setPosts] = useState([]);
-  const [filter, setFilter] = useState({query: '', sort: ''});
-  const [modalVisibility, setModalVisibility] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const [fetchPosts, isLoading, error] = useFetching(async () => {
-    const {data: posts, headers} = await PostService.getAll(limit, page);
-    setPosts(posts);
-    setTotalPages(getPagesCount(headers['x-total-count'], limit));
-  });
+  const [isAuth, setAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchPosts();
-  }, [page]);
-
-  const deletePost = (post) => {
-    setPosts(posts.filter(item => item.id !== post.id)); 
-  }  
-
-  const sortedAndFilteredPosts = usePosts(posts, filter.sort, filter.query);
-
-  const createPost = (post) => {
-    setPosts([...posts, post]);
-    setModalVisibility(false);
-  }
+    if(localStorage.getItem("auth")) {
+      setAuth(true);
+    } 
+    setIsLoading(false);  
+  }, []);
 
   return (
-    <div className="App">
-      <Modal visible={modalVisibility} setVisible={setModalVisibility}>
-        <PostForm createPost={createPost} />
-      </Modal>
-      <StyledButton onClick={() => setModalVisibility(true)}>
-        createPost
-      </StyledButton>
-      <br />
-      <hr />
-      <PostFilter 
-        filter={filter}
-        setFilter={setFilter}
-      />
-      <hr />
-      { error ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}><h1>SomeError {error}</h1></div>
-          : isLoading
-              ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}><Loader /></div>
-              : <PostList deletePost={deletePost} posts={sortedAndFilteredPosts} title={"Список постов"}/>
-
-      }
-      <Pagination selected={page} totalPages={totalPages} onSelect={(p) => setPage(p)} />     
-    </div>
+    <AuthContext.Provider value={{
+      isAuth,
+      setAuth,
+      isLoading
+    }}>
+      <BrowserRouter>
+        <NavigationBar />
+        <AppRouter />
+      </BrowserRouter>
+    </AuthContext.Provider>
   )
 }
 
