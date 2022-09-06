@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.App {
+    width: 60vw;
+}
+
+.post_list {
+    .post_list_header {
+        text-align: center;
+    }
+}
+
+.post {
+    display: flex;
+    padding: 15px;
+    border: 2px solid teal;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+
+    .post__content {
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        width: 100%;
+
+        .post__content__title {
+            text-align: left;
+        }
+    }
+
+    &-enter {
+        transform: translateX(-350px);
+    }
+
+    &-enter-active {
+        transform: translateX(0px);
+        transition: all 500ms ease-in;
+    }
+
+    &-exit {
+        opacity: 1;
+    }
+
+    &-exit-active {
+        transform: translateX(-350px);
+        transition: all 500ms ease-in;
+    }
+}
+
+.filter {
+    margin: 10px 0;
+}
+
+.postform {
+    margin: 10px 0;
+}
+
+.pagination {
+    display: flex;
+    margin: 15px 0;
+    justify-content: center;
+    gap: 5px;
+
+    & > *:disabled {
+        background-color: orange;
+        color: blueviolet;
+    }
+}
