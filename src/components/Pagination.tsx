@@ -1,13 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import { usePagination } from "../hooks/usePagination";
 import StyledButton from "./UI/button/StyledButton";
 
+interface IPaginationProps {
+    totalPages: number,
+    onSelect: (page : number) => void,
+    selected: number | string
+}
 
-export default function Pagination({totalPages, onSelect, selected}) {
+const Pagination : FC<IPaginationProps> = ({totalPages, onSelect, selected}) => {
     const pagesArray = usePagination(totalPages);
     if(!totalPages || totalPages < 2) {
         return (
-            ''
+            null
         );    
     }
     
@@ -15,7 +20,7 @@ export default function Pagination({totalPages, onSelect, selected}) {
         <div className="pagination">
             {pagesArray.map((p) => {
                 return (
-                    <StyledButton {...{disabled: selected == p}} className={selected == p ? 'page__active' : ''} onClick={() => onSelect(p)} key={p}>
+                    <StyledButton {...{disabled: selected === p}} className={selected === p ? 'page__active' : ''} onClick={() => onSelect(p)} key={p}>
                         {p}
                     </StyledButton>
                 )
@@ -23,3 +28,5 @@ export default function Pagination({totalPages, onSelect, selected}) {
         </div>
     );
 }
+
+export default Pagination;

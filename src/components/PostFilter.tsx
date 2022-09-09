@@ -1,8 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import StyledInput from "./UI/input/StyledInput";
 import StyledSelect from "./UI/select/StyledSelect";
 
-export default function PostFilter({filter, setFilter}) {
+export interface IFilterFilterProp {
+    query:  string,
+    sort:   string
+}
+
+interface IFilterProps {
+    filter: IFilterFilterProp,
+    setFilter: (filter: IFilterFilterProp) => void | React.Dispatch<React.SetStateAction<IFilterFilterProp>>
+}
+
+const PostFilter : FC<IFilterProps> = ({filter, setFilter}) => {
     return (
         <div className="filter">
             <StyledInput
@@ -18,9 +28,13 @@ export default function PostFilter({filter, setFilter}) {
                         {value: "body", title: "По телу"}
                     ]
                 }
-                onSelect={selectedSort => setFilter({...filter, sort:selectedSort})}
+                onSelect={value => {
+                    setFilter({...filter, sort:String(value)}); 
+                    return;
+                }}
             />
         </div>
     );
-
 }
+
+export default PostFilter;

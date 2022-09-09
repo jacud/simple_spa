@@ -1,10 +1,18 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { FC } from "react";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 import StyledButton from "./UI/button/StyledButton";
 
-const PostItem  = ({post, index, onDelete}) => {  
-    const navigate = new useNavigate();
+import IPost from "../types/IPost";
+
+interface PostItemProps {
+    post: IPost,
+    index: number,
+    onDelete: (post: IPost) => void | React.Dispatch<React.SetStateAction<IPost>>;
+}
+
+const PostItem : FC<PostItemProps> = ({post, index, onDelete}) => {  
+    const navigate : NavigateFunction = useNavigate();
     function deleteHandler() {
         onDelete(post);
     }

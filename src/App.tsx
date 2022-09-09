@@ -4,10 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 import NavigationBar from "./components/UI/NavigationBar/NavigationBar";
 import AppRouter from "./components/AppRouter";
 import { AuthContext } from "./context";
+import { defaultAuthState } from "./types/IAuthContext";
 
 
 export default function App() {
-  const [isAuth, setAuth] = useState(false);
+  const [isAuth, setAuth] = useState<boolean>(defaultAuthState.isAuth);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

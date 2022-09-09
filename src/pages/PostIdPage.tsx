@@ -3,11 +3,13 @@ import { useParams } from "react-router-dom";
 import PostService from "../API/PostService";
 import { useFetching } from "../hooks/useFetching";
 import Loader from "../components/UI/loader/Loader";
+import IPost, { defaultPost } from "../types/IPost";
+import IComment from "../types/IComment";
 
 const PostIdPage = () => {
-    const params = useParams();
-    const [post, setPost] = useState({});
-    const [comments, setComments] = useState([]);
+    const params = useParams<'id'>();
+    const [post, setPost] = useState<IPost>(defaultPost);
+    const [comments, setComments] = useState<IComment[]>([]);
     const [fetchPostById, isLoading, error] = useFetching(async (id) => {
         const response = await PostService.getById(id);
         setPost(response.data);
@@ -35,7 +37,7 @@ const PostIdPage = () => {
 
         }
 
-        { commentsError ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}><h1>SomeError {error}</h1></div>
+        {!isLoading && (commentsError ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}><h1>SomeError {error}</h1></div>
             : isCommentsLoading
                 ?   <div style={{display: 'flex', justifyContent: 'center', marginTop: '50px'}}><Loader /></div>
                 :   <div><h1>sdfsdf</h1>
@@ -47,7 +49,7 @@ const PostIdPage = () => {
                                 </div>
                             )
                         }                        
-                    </div>
+                    </div>)
 
         }
         </div>

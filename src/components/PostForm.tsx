@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import StyledButton from "./UI/button/StyledButton";
 import StyledInput from "./UI/input/StyledInput";
 
-const PostForm  = ({createPost}) => {
-    const [post, setPost] = useState({title:'', body:''});
+import IPost from "../types/IPost"
 
-    const clickHandler  = (e) => {
+interface IPostFormProps {
+    createPost: (post: IPost) => void | React.Dispatch<React.SetStateAction<IPost>>
+}
+
+const defaultPost : IPost = {
+    body: '',
+    id: 0,
+    title: '',
+    userId: 0
+}
+
+const PostForm : FC<IPostFormProps> = ({createPost}) => {
+    const [post, setPost] = useState<IPost>(defaultPost);
+
+    const clickHandler  = (e: React.MouseEvent<HTMLButtonElement>) : void => {
         e.preventDefault();
         createPost({...post, id: Date.now()});
-        setPost({title:'', body: ''})
+        setPost({...defaultPost, title:'', body: ''})
     }
 
     return (

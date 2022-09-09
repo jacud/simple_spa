@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import PostService from "../API/PostService";
-import Pagination from "../components/Pagination";
-import PostFilter from "../components/PostFilter";
+// import Pagination from "../components/Pagination";
+import PostFilter, { IFilterFilterProp } from "../components/PostFilter";
 import PostForm from "../components/PostForm";
 import PostList from "../components/PostList";
 import StyledButton from "../components/UI/button/StyledButton";
@@ -14,14 +14,16 @@ import { usePosts } from "../hooks/usePosts";
 
 import { getPagesCount } from "../utils/pages";
 
+import IPost from "../types/IPost"
+
 export default function Posts() {
-  const [posts, setPosts] = useState([]);
-  const [filter, setFilter] = useState({query: '', sort: ''});
-  const [modalVisibility, setModalVisibility] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const lastElementRef = useRef();
+  const [posts, setPosts] = useState<Array<IPost>>([]);
+  const [filter, setFilter] = useState<IFilterFilterProp>({query: '', sort: ''});
+  const [modalVisibility, setModalVisibility] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
+  const lastElementRef = useRef<HTMLDivElement>(null);
 
   const [fetchPosts, isPostLoading, postError] = useFetching(async (limit, page) => {
     const {data: newPosts, headers} = await PostService.getAll(limit, page);
@@ -37,13 +39,13 @@ export default function Posts() {
     fetchPosts(limit, page);
   }, [page, limit]);
 
-  const deletePost = (post) => {
-    setPosts(posts.filter(item => item.id !== post.id)); 
+  const deletePost = (post: IPost) => {
+    setPosts(posts.filter(item => item.id !== post.id));
   }  
 
   const sortedAndFilteredPosts = usePosts(posts, filter.sort, filter.query);
 
-  const createPost = (post) => {
+  const createPost = (post: IPost) => {
     setPosts([...posts, post]);
     setModalVisibility(false);
   }
@@ -80,7 +82,7 @@ export default function Posts() {
                 {value: "-1", title: "Все"}
             ]
         }
-        onSelect={selectedLimit => setLimit(selectedLimit)}
+        onSelect={selectedLimit => setLimit(parseInt(selectedLimit.toString()))}
       />
       
       { 

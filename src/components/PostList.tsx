@@ -1,8 +1,17 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, FC } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PostItem from "./PostItem";
+import IPost from "../types/IPost";
 
-const PostList  = forwardRef(({posts, title, deletePost}, ref) => { 
+
+interface IPostListProps {
+    posts: Array<IPost>;
+    title: string;
+    deletePost: (post: IPost) => void | React.Dispatch<React.SetStateAction<IPost>>;
+    ref: React.ForwardedRef<HTMLDivElement>
+}
+
+const PostList : FC<IPostListProps> = forwardRef<HTMLDivElement, IPostListProps>(({posts, title, deletePost}, ref) => { 
     return (
         <div className="post_list">
             <div className="post_list_header">

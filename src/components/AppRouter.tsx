@@ -13,20 +13,20 @@ const AppRouter = () => {
     
     <Routes>
       {
-        isAuth && privateRoutes.map((route, index) =>
-          <Route key={route.path} exact={route.exact} path={route.path} element={<route.component/>}/>
+        isAuth && privateRoutes.map((route) =>
+          <Route key={route.path}  path={route.path} element={<route.component/>}/>
         )
       }
     
       {
-        !isAuth && publicRoutes.map((route, index) =>
-          <Route key={route.path} exact={route.exact} path={route.path} element={<route.component/>}/>
+        !isAuth && publicRoutes.map((route) =>
+          <Route key={route.path}  path={route.path} element={<route.component/>}/>
         )
       }
 
       {
-        commonRoutes.map((route, index) =>
-          <Route key={route.path} exact={route.exact} path={route.path} element={<route.component/>}/>
+        commonRoutes.map((route) =>
+          <Route key={route.path}  path={route.path} element={<route.component/>}/>
         )
       }      
       

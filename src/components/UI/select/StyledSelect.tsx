@@ -1,6 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./StyledSelect.module.scss"
-const StyledSelect = ({options, defaultValue, value, onSelect}) => {
+
+interface IOptionType {
+    value: number | string,
+    title: number | string,
+}
+
+interface ISelectProps {
+    options: IOptionType[],
+    defaultValue: string,
+    value: number | string,
+    onSelect: (value: number | string) => void | React.Dispatch<React.SetStateAction<number | string>>;
+}
+
+const StyledSelect : FC<ISelectProps> = ({options, defaultValue, value, onSelect}) => {
     return (
         <select className={classes.select_custom}
             value={value}

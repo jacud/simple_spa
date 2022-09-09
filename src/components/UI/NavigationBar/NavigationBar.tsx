@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context";
 import { loginPath } from "../../../routes";
 import StyledButton from "../button/StyledButton";
 
-const NavigationBar = () => {
+interface INavigationProps {}
+
+const NavigationBar: FC<INavigationProps> = () => {
     const {isAuth, setAuth} = useContext(AuthContext);
     const navigate = useNavigate();
     const logout = () => {

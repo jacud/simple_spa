@@ -6,9 +6,9 @@ import { AuthContext } from "../context";
 import { defaultPath } from "../routes";
 
 const Login = () => {
-    const {isAuth, setAuth} = useContext(AuthContext);
-    const navigate = new useNavigate();
-    const clickHandler = (e) => {
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) : void => {
         e.preventDefault();
         setAuth(true);
         navigate(defaultPath);
