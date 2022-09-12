@@ -1,12 +1,9 @@
 const Router = require('express');
+const basketController = require('../controllers/basketController');
 const router = new Router();
 
-router.get('/', (req, resp) => {
-    resp.status(200).json({ message: 'get everyone' });
-});
+router.get('/', basketController.get);
 
-router.post('/', (req, resp) => {
-    resp.status(200).json({ message: 'post is fine' });
-});
+router.post('/', basketController.create);
 
 module.exports = router;

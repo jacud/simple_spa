@@ -23,6 +23,7 @@ const Product = sequelize.define('product', {
     name: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.FLOAT, allowNull: false, defaultValue: 0 },
     img: { type: DataTypes.STRING, allowNull: false },
+    rating: { type: DataTypes.INTEGER, defaultValue: 0}
 })
 
 const Manufacturer = sequelize.define('manufacturer', {
@@ -44,7 +45,6 @@ const ProductInfo = sequelize.define('product_info', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
-    img: { type: DataTypes.STRING, allowNull: false },
 })
 
 const ManufacturerProductCategoryLink = sequelize.define('manufacturer_product_category_link', {
@@ -71,6 +71,9 @@ Vote.belongsTo(Product);
 
 Product.hasMany(BasketItem);
 BasketItem.belongsTo(Product);
+
+Product.hasMany(ProductInfo, {as: 'info'});
+ProductInfo.belongsTo(Product);
 
 ProductCategory.belongsToMany(Manufacturer, { through: ManufacturerProductCategoryLink });
 Manufacturer.belongsToMany(ProductCategory, { through: ManufacturerProductCategoryLink });

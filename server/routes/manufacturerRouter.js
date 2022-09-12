@@ -1,12 +1,9 @@
 const Router = require('express');
+const manufacturerController = require('../controllers/manufacturerController');
 const router = new Router();
 
-router.get('/', (req, resp) => {
-    resp.status(200).json({ message: 'get everyone' });
-});
+router.get('/', manufacturerController.getAll);
 
-router.post('/', (req, resp) => {
-    resp.status(200).json({ message: 'post is fine' });
-});
+router.post('/', manufacturerController.create);
 
 module.exports = router;

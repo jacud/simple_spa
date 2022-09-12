@@ -7,8 +7,8 @@ const productCategoryRouter = require('./productCategoryRouter');
 const productRoute = require('./productRouter');
 
 router.use('/user', userRouter);
-router.use('/type', productCategoryRouter);
-router.use('/brand', manufacturerRoute);
+router.use('/category', productCategoryRouter);
+router.use('/manufacturer', manufacturerRoute);
 router.use('/basket', basketRoute);
 router.use('/product', productRoute);
 
