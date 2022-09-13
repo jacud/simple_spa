@@ -4,11 +4,11 @@ module.exports = function (req, resp, next) {
         next()
     }
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.autharization.split(' ')[1];
         if (!token) {
-            return resp.status(401).json({message: "Пользователь не авторизован"});
+            return resp.status(401).json({message: "Пользователь не авторизован1"});
         }
-
+        
         const decoded = jwt.verify(token, process.env.JWT_SECTER_KEY);
         req.user = decoded;
         next();

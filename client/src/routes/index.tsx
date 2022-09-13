@@ -34,8 +34,7 @@ export const commonRoutes : IRoute[] = [
     { path: PRODUCT_ROUTE, component: Product },
 ]
 
-
-export const defaultPath: string = POSTS_ROUTE
+export const defaultPath: string = SHOP_ROUTE
 
 export const loginPath: string = LOGIN_ROUTE
 

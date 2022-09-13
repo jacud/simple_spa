@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import { observer } from "mobx-react-lite";
+import React, { FC, useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { AuthContext } from "../context";
-import { commonRoutes, defaultPath, errorRoute, loginPath, privateRoutes, publicRoutes } from "../routes";
+import { GlobalContext } from "../context/globalContext";
+import { commonRoutes, defaultPath, errorRoute, privateRoutes, publicRoutes } from "../routes";
 import Loader from "./UI/loader/Loader";
 
-const AppRouter = () => {
-  const {isAuth, isLoading} = useContext(AuthContext);
-  if(isLoading) {
+const AppRouter : FC = observer(() => {
+  const {loadingState, user} = useContext(GlobalContext);
+  if(loadingState.isLoading) {
     return (<Loader />);
   }
+
+  const isAuth = user.isAuth;
+  console.log(isAuth);
+  
+  
   return (
     
     <Routes>
@@ -35,10 +41,10 @@ const AppRouter = () => {
       }/>
 
       <Route path="/" element={
-        <Navigate to={isAuth ? defaultPath : loginPath} replace />
+        <Navigate to={ defaultPath } replace />
       }/>
     </Routes>
   );
-}
+})
 
 export default AppRouter;
