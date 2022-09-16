@@ -5,9 +5,9 @@ interface IButtomProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode
 }
 
-const StyledButton: FC<IButtomProps>  = ({children : childrenProp, ...parentProps}) => { 
+const StyledButton: FC<IButtomProps>  = ({ children : childrenProp, ...parentProps }) => { 
     return (
-        <button {...parentProps} className={classes.button_custom}>
+        <button { ...parentProps } className={ classes.button_custom }>
             {
                 childrenProp
             }

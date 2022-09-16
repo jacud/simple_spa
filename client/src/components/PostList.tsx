@@ -11,30 +11,30 @@ interface IPostListProps {
     ref: React.ForwardedRef<HTMLDivElement>
 }
 
-const PostList : FC<IPostListProps> = forwardRef<HTMLDivElement, IPostListProps>(({posts, title, deletePost}, ref) => { 
+const PostList : FC<IPostListProps> = forwardRef<HTMLDivElement, IPostListProps>(function PostListFc ({ posts, title, deletePost }, ref) { 
     return (
         <div className="post_list">
             <div className="post_list_header">
                 <h1>{title}</h1>
             </div>
-            
+
             { 
-            posts.length ? <TransitionGroup>                
-                    {posts.map((post, index) =>
+                posts.length ? <TransitionGroup>
+                    {posts.map((post) =>
                         <CSSTransition
-                            key={post.id}
-                            timeout={500}
+                            key={ post.id }
+                            timeout={ 500 }
                             classNames="post"
                         >
-                            <PostItem post={post} index={post.id} onDelete={deletePost}/>
+                            <PostItem post={ post } index={ post.id } onDelete={ deletePost }/>
                         </CSSTransition>
                     )}
                 </TransitionGroup>
-                : <h2 style={{textAlign:'center'}}>Nothing found</h2>
+                    : <h2 style={ { textAlign:'center' } }>Nothing found</h2>
             }
 
 
-            <div ref={ref} style={{visibility: 'hidden', height: '0px', width: '100%', background: 'red'}}></div>
+            <div ref={ ref } style={ { visibility: 'hidden', height: '0px', width: '100%', background: 'red' } }></div>
             
         </div>
     );

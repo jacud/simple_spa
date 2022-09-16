@@ -1,6 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { defaultUser, IUser } from "../types/IUser";
 
+const adminRoleName = "ADMIN";
+
 export default class UserStore {
     _isAuth! : boolean;
     _user!: IUser;
@@ -21,6 +23,10 @@ export default class UserStore {
 
     get user() : IUser {
         return this._user;
+    }
+
+    get isAdmin() : boolean {
+        return this._user?.role == adminRoleName;
     }
 
     setUser(user: IUser) {

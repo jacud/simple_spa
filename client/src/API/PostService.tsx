@@ -3,23 +3,23 @@ import IComment from "../types/IComment";
 import IPost from "../types/IPost";
 
 export default class PostService {
-    static async getAll(limit: number = 10, page: number = 0) : Promise<any> {
-        const result = await axios.get<IPost[]>('https://jsonplaceholder.typicode.com/posts', {
+    static async getAll(limit = 10, page = 0) : Promise<{ headers: Record<string, string>, data: IPost[] }> {
+        const { headers, data } = await axios.get<IPost[]>('https://jsonplaceholder.typicode.com/posts', {
             params: {
                 _limit: limit,
                 _page: page
             }
         });
-        return result;
+        return { headers, data };
     }
 
-    static async getById(postId: number) : Promise<any> {
-        const result = await axios.get<IPost>('https://jsonplaceholder.typicode.com/posts/' + postId);
-        return result;
+    static async getById(postId: number) : Promise<{ headers: Record<string, string>, data: IPost }> {
+        const { headers, data } = await axios.get<IPost>('https://jsonplaceholder.typicode.com/posts/' + postId);
+        return { headers, data };
     }
 
-    static async getCommentsByPostId(postId: number) : Promise<any> {
-        const result = await axios.get<IComment>('https://jsonplaceholder.typicode.com/posts/' + postId + '/comments');
-        return result;
+    static async getCommentsByPostId(postId: number) : Promise<{ headers: Record<string, string>, data: IComment[] }> {
+        const { headers, data }  = await axios.get<IComment[]>('https://jsonplaceholder.typicode.com/posts/' + postId + '/comments');
+        return { headers, data };
     }
 }

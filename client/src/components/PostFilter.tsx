@@ -12,26 +12,24 @@ interface IFilterProps {
     setFilter: (filter: IFilterFilterProp) => void | React.Dispatch<React.SetStateAction<IFilterFilterProp>>
 }
 
-const PostFilter : FC<IFilterProps> = ({filter, setFilter}) => {
+const PostFilter : FC<IFilterProps> = ({ filter, setFilter }) => {
     return (
         <div className="filter">
             <StyledInput
-                value={filter.query}
-                onChange={e => setFilter({...filter, query:e.target.value})}
+                value={ filter.query }
+                onChange={ e => setFilter({ ...filter, query:e.target.value }) }
             />
             <StyledSelect
-                value={filter.sort}
-                defaultValue={"Не выбрано"}
-                options={
-                    [
-                        {value: "title", title: "По заголовку"},
-                        {value: "body", title: "По телу"}
-                    ]
-                }
-                onSelect={value => {
-                    setFilter({...filter, sort:String(value)}); 
+                value={ filter.sort }
+                defaultValue={ "Не выбрано" }
+                options={ [
+                    { value: "title", title: "По заголовку" },
+                    { value: "body", title: "По телу" }
+                ] }
+                onSelect={ value => {
+                    setFilter({ ...filter, sort:String(value) }); 
                     return;
-                }}
+                } }
             />
         </div>
     );

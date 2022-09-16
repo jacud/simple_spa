@@ -6,6 +6,8 @@ export interface  IAuthContext {
 
 export const defaultAuthState : IAuthContext = {
     isAuth: false,
-    setAuth: () => {},
+    setAuth: () => {
+        return;
+    },
     isLoading: false
 }

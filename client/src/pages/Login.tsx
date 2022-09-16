@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { Location, useLocation, useNavigate } from "react-router-dom";
-import { Exception } from "sass";
 import { login, registration } from "../API/ServerInteractionApi";
 import StyledButton from "../components/UI/button/StyledButton";
 import StyledInput from "../components/UI/input/StyledInput";
@@ -18,14 +17,13 @@ const Login = observer(() => {
     const location: Location = useLocation();
     const isLogin = location.pathname === LOGIN_ROUTE
     const navigate = useNavigate();
-    console.log(location, LOGIN_ROUTE, isLogin);
 
     const clickHandler = async (e: React.MouseEvent<HTMLButtonElement>) : Promise<void> => {
         e.preventDefault();
         try {
             let loggedUser : IUser;
             if (isLogin) {
-                const response = await login(email, password, "ADMIN");
+                const response = await login(email, password);
                 loggedUser = response;
                 
             } else {
@@ -36,8 +34,8 @@ const Login = observer(() => {
             user.setUser(loggedUser);
             user.setIsAuth(true);
             navigate(defaultPath);
-        } catch (e: any) {
-            alert(e.message)
+        } catch (e: unknown) {
+            alert((e as Error).message)
         }
     }
 
@@ -45,19 +43,21 @@ const Login = observer(() => {
         <div>
             <h1>Страница логина</h1>
             <form>
-                <StyledInput    onChange={(e: React.ChangeEvent<HTMLInputElement>)  => setEmail(e.target.value)}
-                                type='text'
-                                placeholder="Введите email"
-                                name="email"
-                                value={email}
+                <StyledInput   
+                    onChange={ (e: React.ChangeEvent<HTMLInputElement>)  => setEmail(e.target.value) }
+                    type='text'
+                    placeholder="Введите email"
+                    name="email"
+                    value={ email }
                 />
-                <StyledInput    onChange={(e: React.ChangeEvent<HTMLInputElement>)  => setPassword(e.target.value)}
-                                type='password'
-                                placeholder="Введите пароль"
-                                name="password"
-                                value={password}
+                <StyledInput
+                    onChange={ (e: React.ChangeEvent<HTMLInputElement>)  => setPassword(e.target.value) }
+                    type='password'
+                    placeholder="Введите пароль"
+                    name="password"
+                    value={ password }
                 />
-                <StyledButton type="submit" onClick={clickHandler}>Вход</StyledButton>
+                <StyledButton type="submit" onClick={ clickHandler }>Вход</StyledButton>
             </form>
         </div>
     );

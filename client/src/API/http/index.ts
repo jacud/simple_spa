@@ -9,7 +9,10 @@ const $authHost : AxiosInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL
 });
 
-const authInterceptor = (config: any) => {
+const authInterceptor = (config: AxiosRequestConfig) => {
+    if (config.headers === undefined) {
+        config.headers = {};
+    }
     config.headers.autharization = `${process.env.REACT_APP_TOKEN_PREFIX} ${localStorage.getItem('token')}`;
     return config;
 }

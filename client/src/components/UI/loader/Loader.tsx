@@ -3,7 +3,7 @@ import classes from "./Loader.module.scss"
 
 const Loader: FC = () => {
     return (
-        <div className={classes.loader}></div>
+        <div className={ classes.loader }></div>
     );
 }
 

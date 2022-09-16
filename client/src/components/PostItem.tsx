@@ -11,7 +11,7 @@ interface PostItemProps {
     onDelete: (post: IPost) => void | React.Dispatch<React.SetStateAction<IPost>>;
 }
 
-const PostItem : FC<PostItemProps> = ({post, index, onDelete}) => {  
+const PostItem : FC<PostItemProps> = ({ post, index, onDelete }) => {  
     const navigate : NavigateFunction = useNavigate();
     function deleteHandler() {
         onDelete(post);
@@ -29,10 +29,10 @@ const PostItem : FC<PostItemProps> = ({post, index, onDelete}) => {
                 </div>
             </div>
             <div className="post__btns">
-                <StyledButton onClick={openPost}>
+                <StyledButton onClick={ openPost }>
                     Открыть
                 </StyledButton>
-                <StyledButton onClick={deleteHandler}>
+                <StyledButton onClick={ deleteHandler }>
                     Удалить
                 </StyledButton>
             </div>

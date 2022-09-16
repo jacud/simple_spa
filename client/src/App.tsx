@@ -10,29 +10,29 @@ import { IUser } from "./types/IUser";
 import Loader from "./components/UI/loader/Loader";
 
 const App : FC = observer(() => {
-  const {loadingState, user} = useContext(GlobalContext);
+    const { loadingState, user } = useContext(GlobalContext);
 
-  useEffect(() => {
-    check().then((data: IUser) => {
-      user.setIsAuth(true);
-      user.setUser(data);
-    }).finally(() => {
-      loadingState.setIsLoading(false);
-    });
-  }, []);
+    useEffect(() => {
+        check().then((data: IUser) => {
+            user.setIsAuth(true);
+            user.setUser(data);
+        }).finally(() => {
+            loadingState.setIsLoading(false);
+        });
+    }, []);
 
-  if(loadingState.isLoading) {
+    if (loadingState.isLoading) {
+        return (
+            <Loader />
+        );
+    }
+
     return (
-      <Loader />
-    );
-  }
-
-  return (
-    <BrowserRouter>
-      <NavigationBar />
-      <AppRouter />
-    </BrowserRouter>
-  )
+        <BrowserRouter>
+            <NavigationBar />
+            <AppRouter />
+        </BrowserRouter>
+    )
 })
 
 export default App;

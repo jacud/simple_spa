@@ -15,13 +15,13 @@ const defaultPost : IPost = {
     userId: 0
 }
 
-const PostForm : FC<IPostFormProps> = ({createPost}) => {
+const PostForm : FC<IPostFormProps> = ({ createPost }) => {
     const [post, setPost] = useState<IPost>(defaultPost);
 
     const clickHandler  = (e: React.MouseEvent<HTMLButtonElement>) : void => {
         e.preventDefault();
-        createPost({...post, id: Date.now()});
-        setPost({...defaultPost, title:'', body: ''})
+        createPost({ ...post, id: Date.now() });
+        setPost({ ...defaultPost, title:'', body: '' })
     }
 
     return (
@@ -29,16 +29,16 @@ const PostForm : FC<IPostFormProps> = ({createPost}) => {
             <StyledInput 
                 type="text" 
                 placeholder="Название поста"
-                value={post.title}
-                onChange={(e) => setPost({...post, title: e.target.value})}
+                value={ post.title }
+                onChange={ (e) => setPost({ ...post, title: e.target.value }) }
             />
             <StyledInput
                 type="text"
                 placeholder="Содержание поста"
-                value={post.body}
-                onChange={(e) => setPost({...post, body: e.target.value})}
+                value={ post.body }
+                onChange={ (e) => setPost({ ...post, body: e.target.value }) }
             />
-            <StyledButton onClick={clickHandler}>
+            <StyledButton onClick={ clickHandler }>
                 Push mE!!!!
             </StyledButton>
         </form>

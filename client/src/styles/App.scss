@@ -99,7 +99,21 @@
 
     &__links {
         display: flex;
-        margin-left: auto;
         gap: 25px;
+        display: flex;
+        align-items: center;
+
+        &__right {
+            margin-left: auto;
+        }
+
+        & > * {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+            color: teal;
+        }
     }
 }

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 export default class LoadingStateStore {
-    private _isLoading : boolean = true;
+    private _isLoading = true;
     
     constructor() {
         makeAutoObservable(this);

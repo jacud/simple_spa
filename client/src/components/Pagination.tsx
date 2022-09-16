@@ -8,7 +8,7 @@ interface IPaginationProps {
     selected: number | string
 }
 
-const Pagination : FC<IPaginationProps> = ({totalPages, onSelect, selected}) => {
+const Pagination : FC<IPaginationProps> = ({ totalPages, onSelect, selected }) => {
     const pagesArray = usePagination(totalPages);
     if(!totalPages || totalPages < 2) {
         return (
@@ -20,7 +20,7 @@ const Pagination : FC<IPaginationProps> = ({totalPages, onSelect, selected}) => 
         <div className="pagination">
             {pagesArray.map((p) => {
                 return (
-                    <StyledButton {...{disabled: selected === p}} className={selected === p ? 'page__active' : ''} onClick={() => onSelect(p)} key={p}>
+                    <StyledButton { ...{ disabled: selected === p } } className={ selected === p ? 'page__active' : '' } onClick={ () => onSelect(p) } key={ p }>
                         {p}
                     </StyledButton>
                 )
